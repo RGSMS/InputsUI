@@ -51,7 +51,7 @@ namespace RGSMS
                             break;
 
                         case EInputOption.Vector2:
-                            inputConfig = new VectorTwoInputDefiner();
+                            inputConfig = new Vector2InputConfig();
                             break;
                     }
 

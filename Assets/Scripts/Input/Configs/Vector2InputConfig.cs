@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RGSMS
 {
     [System.Serializable]
-    public class VectorTwoInputDefiner : InputConfig
+    public class Vector2InputConfig : InputConfig
     {
         [SerializeField]
         private Vector2Event _vector2Callback = null;
