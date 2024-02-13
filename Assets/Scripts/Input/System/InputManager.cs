@@ -189,7 +189,7 @@ namespace RGSMS
 #endif
 
             InputSystem.onDeviceChange += OnDeviceConnected;
-            AddNewDeviceChangeEvent(SetCorrectDevice);
+            AddNewDeviceConnectionEvent(SetCorrectDevice);
 
             PopulateDevicesIcons(deviceInputsIcons);
             PopulateActionMaps();
