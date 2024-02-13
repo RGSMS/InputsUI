@@ -65,7 +65,7 @@ namespace RGSMS
 
     #endregion
 
-    public class InputManager : IDisposable
+    public sealed class InputManager
     {
         #region Variables
 
@@ -164,6 +164,8 @@ namespace RGSMS
         {
             ClearAllInputs();
             _inputs.Dispose();
+
+            Application.focusChanged -= FocusCallback;
 
             InputSystem.onDeviceChange -= OnDeviceConnected;
 #if UNITY_STANDALONE

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RGSMS
 {
     [System.Serializable]
-    public class InputsContainer
+    public sealed class InputsContainer
     {
         [SerializeReference]
         private List<InputConfig> _inputs = null;

@@ -1,12 +1,8 @@
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using UnityEngine;
 
 namespace RGSMS
 {
-    [System.Serializable]
-    public class VectorEvent : UnityEvent<float> { }
-
     [System.Serializable]
     public class VectorInputConfig : InputConfig
     {

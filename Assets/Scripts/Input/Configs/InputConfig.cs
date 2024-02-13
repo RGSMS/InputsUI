@@ -3,13 +3,6 @@ using UnityEngine;
 
 namespace RGSMS
 {
-    public interface IHold
-    {
-        void StartHold();
-        void EndHold();
-        void Hold();
-    }
-
     [System.Serializable]
     public abstract class InputConfig
     {
