@@ -6,7 +6,7 @@ namespace RGSMS.UI
     [DisallowMultipleComponent]
     public abstract class BaseInstantiableView<TData, TView> : MonoBehaviour where TView : BaseInstantiableView<TData, TView>
     {
-        public TData Data { get; protected set;  } = (default);
+        public TData Data { get; protected set; } = (default);
         public Transform Parent { get; private set; } = null;
 
         private bool _initialized = false;
