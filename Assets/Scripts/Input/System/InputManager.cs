@@ -41,8 +41,9 @@ namespace RGSMS
 
         LeftShoulder,
         RightShoulder,
-        RightTrigger,
+
         LeftTrigger,
+        RightTrigger,
 
         UpArrow,
         DownArrow,
@@ -53,6 +54,16 @@ namespace RGSMS
 
         LeftStick,
         RightStick,
+
+        LeftStickUp,
+        LeftStickDown,
+        LeftStickLeft,
+        LeftStickRight,
+
+        RightStickUp,
+        RightStickDown,
+        RightStickLeft,
+        RightStickRight,
 
         LeftStickButton,
         RightStickButton
@@ -68,6 +79,46 @@ namespace RGSMS
     public sealed class InputManager
     {
         #region Variables
+
+        private readonly Dictionary<EInput, string> _inputsLocMap = new()
+        {
+            { EInput.Cross,             "input_cross" },
+            { EInput.Circle,            "input_circle" },
+            { EInput.Square,            "input_square" },
+            { EInput.Triangle,          "input_triangle" },
+
+            { EInput.Start,             "input_start" },
+            { EInput.Select,            "input_select" },
+
+            { EInput.LeftShoulder,      "input_left_shoulder" },
+            { EInput.RightShoulder,     "input_right_shoulder" },
+
+            { EInput.LeftTrigger,       "input_left_trigger"  },
+            { EInput.RightTrigger,      "input_right_trigger" },
+
+            { EInput.UpArrow,           "input_up_arrow" },
+            { EInput.DownArrow,         "input_down_arrow" },
+            { EInput.LeftArrow,         "input_left_arrow" },
+            { EInput.RightTrigger,      "input_right_arrow" },
+
+            { EInput.DPad,              "input_dpad" },
+
+            { EInput.LeftStick,         "input_left_stick"  },
+            { EInput.RightStick,        "input_right_stick" },
+
+            { EInput.LeftStickUp,       "input_left_stick_up" },
+            { EInput.LeftStickDown,     "input_left_stick_down" },
+            { EInput.LeftStickLeft,     "input_left_stick_left" },
+            { EInput.LeftStickRight,    "input_left_stick_right" },
+
+            { EInput.RightStickUp,      "input_right_stick_up" },
+            { EInput.RightStickDown,    "input_right_stick_down" },
+            { EInput.RightStickLeft,    "input_right_stick_left" },
+            { EInput.RightStickRight,   "input_right_stick_right" },
+
+            { EInput.LeftStickButton,   "input_left_stick_button" },
+            { EInput.RightStickButton,  "input_right_stick_button" }
+        };
 
         private readonly Dictionary<string, string> _gamepadMap = new()
         {
@@ -104,6 +155,7 @@ namespace RGSMS
 
         private readonly Stack<InputActionMap> _inputsMaps = null;
 
+        private event Action _deviceDisconnectionEvent = null;
         private event Action _deviceConnectionEvent = null;
 
         private DeviceInputIcons _deviceInputIcons = null;
@@ -175,11 +227,13 @@ namespace RGSMS
 
 #endregion
 
-        #region Inputs Icons
+        #region Device Methods
 
         // Get the sprite icon according to the type of input passed as a parameter
         public Sprite GetInputIcon(EInput input) => _deviceInputIcons.GetSpriteByInput(input);
         public Sprite GetJoystickImage() => _deviceInputIcons.Joystick;
+
+        public string GetInputLocKey(EInput input) => _inputsLocMap[input];
 
         private void PopulateDevicesIcons(DeviceInputIcons[] deviceInputsIcons)
         {
@@ -237,8 +291,11 @@ namespace RGSMS
 
         #region Device Change
 
-        public void AddNewDeviceChangeEvent(Action newDeviceConnectionEvent) => _deviceConnectionEvent += newDeviceConnectionEvent;
-        public void RemoveDeviceChangeEvent(Action deviceConnectionEvent) => _deviceConnectionEvent -= deviceConnectionEvent;
+        public void AddNewDeviceDisconnectionEvent(Action newDeviceDisconnectionEvent) => _deviceDisconnectionEvent += newDeviceDisconnectionEvent;
+        public void RemoveDeviceDisconnectionEvent(Action deviceDisconnectionEvent) => _deviceDisconnectionEvent -= deviceDisconnectionEvent;
+
+        public void AddNewDeviceConnectionEvent(Action newDeviceConnectionEvent) => _deviceConnectionEvent += newDeviceConnectionEvent;
+        public void RemoveDeviceConnectionEvent(Action deviceConnectionEvent) => _deviceConnectionEvent -= deviceConnectionEvent;
 
         public EDeviceType GetDeviceByControl() => _deviceBySchemeMap[_currentControlScheme];
 
@@ -247,9 +304,14 @@ namespace RGSMS
         {
             switch (change)
             {
+                case InputDeviceChange.Reconnected:
                 case InputDeviceChange.Added:
-                case InputDeviceChange.Disconnected:
                     _deviceConnectionEvent?.Invoke();
+                    break;
+
+                case InputDeviceChange.Disconnected:
+                case InputDeviceChange.Removed:
+                    _deviceDisconnectionEvent?.Invoke();
                     break;
             }
         }
