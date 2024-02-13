@@ -10,6 +10,10 @@ namespace RGSMS
         public EDevice Console => _console;
 
         [SerializeField]
+        private Sprite _joystick = null;
+        public Sprite Joystick => _joystick;
+
+        [SerializeField]
         private InputIconData[] _inputsIcons = null;
 
         public Sprite GetSpriteByInput(EInput input)

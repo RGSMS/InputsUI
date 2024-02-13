@@ -179,6 +179,7 @@ namespace RGSMS
 
         // Get the sprite icon according to the type of input passed as a parameter
         public Sprite GetInputIcon(EInput input) => _deviceInputIcons.GetSpriteByInput(input);
+        public Sprite GetJoystickImage() => _deviceInputIcons.Joystick;
 
         private void PopulateDevicesIcons(DeviceInputIcons[] deviceInputsIcons)
         {
