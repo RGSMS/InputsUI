@@ -13,9 +13,20 @@ namespace RGSMS.Input
         None = -1,
 
         Keyboard,
-        PlayStation,
-        Xbox,
-        Switch
+
+        EightBitDo,
+
+        SwitchJoyCons,
+        SwitchProController,
+
+        Xbox360,
+        XboxOne,
+        XboxSeries,
+
+        PlayStation2,
+        PlayStation3,
+        PlayStation4,
+        PlayStation5,
     }
 
     public enum EDeviceType
@@ -136,10 +147,10 @@ namespace RGSMS.Input
 
         private readonly Dictionary<EDevice, string> _deviceMap = new()
         {
-            { EDevice.PlayStation,  "Playstation" },
-            { EDevice.Keyboard,     "Keyboard" },
-            { EDevice.Switch,       "Switch" },
-            { EDevice.Xbox,         "Xbox" }
+            { EDevice.PlayStation4,         "Playstation" },
+            { EDevice.Keyboard,             "Keyboard" },
+            { EDevice.SwitchProController,  "Switch" },
+            { EDevice.XboxOne,              "Xbox" }
         };
 
         private readonly Dictionary<string, EDeviceType> _deviceBySchemeMap = new()
@@ -245,7 +256,7 @@ namespace RGSMS.Input
 
         private void SetCorrectDevice()
         {
-            string deviceName = _deviceMap[EDevice.Xbox];
+            string deviceName = _deviceMap[EDevice.XboxOne];
 
 #if UNITY_SWITCH
             deviceName = _deviceMap[EDevice.Switch];
@@ -283,7 +294,7 @@ namespace RGSMS.Input
                 return deviceInputIcons;
             }
 
-            string xbox = _deviceMap[EDevice.Xbox];
+            string xbox = _deviceMap[EDevice.XboxOne];
             return _inputIconsMap[xbox];
         }
 
