@@ -36,7 +36,7 @@ namespace RGSMS.UI
         public override void Destroy() { }
         protected override void Initialize()
         {
-            //falta pegar a isntancia do InputManager pra utilizar sempre que necessario
+            _inputManager = RoloGameManager.Instance.GetInstance<InputManager>();
         }
 
         #endregion
