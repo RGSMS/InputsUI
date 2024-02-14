@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RGSMS
+namespace RGSMS.Input
 {
     [System.Serializable]
     public sealed class InputsContainer

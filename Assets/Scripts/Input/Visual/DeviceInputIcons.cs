@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RGSMS
+namespace RGSMS.Input
 {
     [CreateAssetMenu(fileName = "Device Inputs Icons", menuName = "OTAIMON/Input/Device Icons")]
     public class DeviceInputIcons : ScriptableObject

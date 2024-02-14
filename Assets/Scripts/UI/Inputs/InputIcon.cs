@@ -1,4 +1,5 @@
 using UnityEngine;
+using RGSMS.Input;
 
 namespace RGSMS.UI
 {

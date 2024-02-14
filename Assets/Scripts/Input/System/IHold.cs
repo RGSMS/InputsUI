@@ -1,4 +1,4 @@
-namespace RGSMS
+namespace RGSMS.Input
 {
     public interface IHold
     {

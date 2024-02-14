@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RGSMS
+namespace RGSMS.Input
 {
     [System.Serializable]
     public struct InputIconData

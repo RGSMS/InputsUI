@@ -1,7 +1,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 
-namespace RGSMS
+namespace RGSMS.Input
 {
     [System.Serializable]
     public abstract class InputConfig

@@ -2,7 +2,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine;
 
-namespace RGSMS
+namespace RGSMS.Input
 {
     public enum EInputAction
     {

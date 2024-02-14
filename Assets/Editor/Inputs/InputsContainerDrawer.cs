@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RGSMS
+namespace RGSMS.Input
 {
     public enum EInputOption : int
     {
