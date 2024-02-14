@@ -15,6 +15,10 @@ namespace RGSMS.Input
     {
         private EInputOption _inputOption = EInputOption.Button;
 
+        private const string _optionsLabel = "Input Options";
+        private const string _buttonLabel = "Add New Input";
+        private const string _listLabel = "Inputs List";
+        private const string _inputsLabel = "Inputs";
         private const string _inputs = "_inputs";
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -22,7 +26,7 @@ namespace RGSMS.Input
             Rect rect = position;
             rect.height = 18.0f;
 
-            label.text = "Inputs List";
+            label.text = _listLabel;
             property.isExpanded = EditorGUI.Foldout(rect, property.isExpanded, label);
             if (property.isExpanded)
             {
@@ -32,12 +36,12 @@ namespace RGSMS.Input
                 rect.width -= 10.0f;
 
                 rect.y += 18.0f;
-                label.text = "Input Options";
+                label.text = _optionsLabel;
 
                 _inputOption = (EInputOption)EditorGUI.EnumPopup(rect, label, _inputOption);
 
                 rect.y += 18.0f;
-                if(GUI.Button(rect, "Add New Input"))
+                if(GUI.Button(rect, _buttonLabel))
                 {
                     InputConfig inputConfig = null;
                     switch(_inputOption)
@@ -63,7 +67,7 @@ namespace RGSMS.Input
                 }
 
                 rect.y += 18.0f;
-                label.text = "Inputs";
+                label.text = _inputsLabel;
 
                 EditorGUI.PropertyField(rect, inputs, label);
             }
