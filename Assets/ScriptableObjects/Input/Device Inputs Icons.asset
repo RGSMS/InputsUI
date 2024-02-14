@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2bc7ab03ac07746855862bb88bd0cd, type: 3}
+  m_Name: Device Inputs Icons
+  m_EditorClassIdentifier: 
+  _console: 5
+  _joystick: {fileID: 21300000, guid: 1ee38ff5889caa248a30266ee756d4c5, type: 3}
+  _inputsIcons:
+  - Name: Cross
+    Input: 0
+    Icon: {fileID: 21300000, guid: 6c97b18bf9338d5489d1d2b4eb74282a, type: 3}
+  - Name: Circle
+    Input: 1
+    Icon: {fileID: 21300000, guid: 16dbc52d487933a4288f892899955c8f, type: 3}
+  - Name: Square
+    Input: 2
+    Icon: {fileID: 21300000, guid: 2f6da7a60861756448fb1a524f7cc554, type: 3}
+  - Name: Triangle
+    Input: 3
+    Icon: {fileID: 21300000, guid: 91212b5334b85e3499d9114aab06f534, type: 3}
+  - Name: Start
+    Input: 4
+    Icon: {fileID: 21300000, guid: 9aaddfe24451b5745a9d6e198f79b5a9, type: 3}
+  - Name: Select
+    Input: 5
+    Icon: {fileID: 21300000, guid: 7e68e3dd12a409e41a99f40f17400fcc, type: 3}
+  - Name: LeftShoulder
+    Input: 6
+    Icon: {fileID: 21300000, guid: 136fcfa8f6901ef47989fa7bf21a5f19, type: 3}
+  - Name: RightShoulder
+    Input: 7
+    Icon: {fileID: 21300000, guid: 9fd37ba18e909a34a999c29257c40a84, type: 3}
+  - Name: LeftTrigger
+    Input: 8
+    Icon: {fileID: 21300000, guid: 7af67e5a91e700a4cb8990023d1ba25c, type: 3}
+  - Name: RightTrigger
+    Input: 9
+    Icon: {fileID: 21300000, guid: 7f0eef00fd31c9348a68bb1873eff8d3, type: 3}
+  - Name: UpArrow
+    Input: 10
+    Icon: {fileID: 21300000, guid: 0187561bc74ac1e43ba2cad854cd3096, type: 3}
+  - Name: DownArrow
+    Input: 11
+    Icon: {fileID: 21300000, guid: 65b404cf8d43fd346addb89465cd5e77, type: 3}
+  - Name: LeftArrow
+    Input: 12
+    Icon: {fileID: 21300000, guid: 7770b2e04a71fce44938a8d5371dff2f, type: 3}
+  - Name: RightArrow
+    Input: 13
+    Icon: {fileID: 21300000, guid: 96f2ffa267b0cde449528472159ef810, type: 3}
+  - Name: DPad
+    Input: 14
+    Icon: {fileID: 21300000, guid: c68eb6f957211524480d22ea09a136c8, type: 3}
+  - Name: LeftStick
+    Input: 15
+    Icon: {fileID: 21300000, guid: 263bc083f14301d4da8045cc1a2ce51e, type: 3}
+  - Name: RightStick
+    Input: 16
+    Icon: {fileID: 21300000, guid: 16499ed0f8e631e4a847b775bb77515e, type: 3}
+  - Name: LeftStickUp
+    Input: 17
+    Icon: {fileID: 21300000, guid: e1bb0757d76de644d9dfca5c59d58398, type: 3}
+  - Name: LeftStickDown
+    Input: 18
+    Icon: {fileID: 21300000, guid: c1a680aa2c84ead4b8eda76b523703e0, type: 3}
+  - Name: LeftStickLeft
+    Input: 19
+    Icon: {fileID: 21300000, guid: c4b80927edd669c48b597a065cc530ac, type: 3}
+  - Name: LeftStickRight
+    Input: 20
+    Icon: {fileID: 21300000, guid: 47c7d66ebd5ecd149866258ae9a7c3cf, type: 3}
+  - Name: RightStickUp
+    Input: 21
+    Icon: {fileID: 21300000, guid: 998e7a8799e2bf549a6afc8e5a19db36, type: 3}
+  - Name: RightStickDown
+    Input: 22
+    Icon: {fileID: 21300000, guid: fa13b9d9fac936e41a2e1da16bb8b5dc, type: 3}
+  - Name: RightStickLeft
+    Input: 23
+    Icon: {fileID: 21300000, guid: ebca5bd9760d63c4ea1f7aedce7126dc, type: 3}
+  - Name: RightStickRight
+    Input: 24
+    Icon: {fileID: 21300000, guid: aef84e19c797487409a95ee9bb0afb1f, type: 3}
+  - Name: LeftStickButton
+    Input: 25
+    Icon: {fileID: 21300000, guid: 8ce822d723873ce4da04fd7ea427a2a0, type: 3}
+  - Name: RightStickButton
+    Input: 26
+    Icon: {fileID: 21300000, guid: 078410aff51bbb040b3cafa6ec7123dd, type: 3}
