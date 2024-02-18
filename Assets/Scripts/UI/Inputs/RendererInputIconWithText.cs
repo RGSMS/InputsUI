@@ -6,7 +6,7 @@ namespace RGSMS.UI
     public class RendererInputIconWithText : RendererInputIcon
     {
         [SerializeField]
-        private TextMeshProUGUI _text = null;
+        private TextMeshPro _text = null;
 
         [SerializeField]
         private string _uiSuffix = null;
