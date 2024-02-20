@@ -21,6 +21,8 @@ namespace RGSMS
         [SerializeField]
         private DeviceInputIcons[] _devicesIcons = null;
 
+        private event Action _update = null;
+
         private void Awake()
         {
             if(Instance != null)
@@ -33,8 +35,17 @@ namespace RGSMS
             InitializeSystems();
         }
 
+        private void Update()
+        {
+            _update?.Invoke();
+        }
+
+        #region Systems Methods
+
         private void InitializeSystems()
         {
+            _systemsInstance = new Dictionary<Type, object>();
+
             AddInstance(new UIManager());
             AddInstance(new InputManager(_playerInput, _devicesIcons));
         }
@@ -58,5 +69,14 @@ namespace RGSMS
 
             return null;
         }
+
+        #endregion
+
+        #region Callback Methods
+
+        public void RemoveUpdateCallback(Action callback) => _update -= callback;
+        public void AddUpdateCallback(Action callback) => _update += callback;
+
+        #endregion
     }
 }

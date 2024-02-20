@@ -110,7 +110,7 @@ namespace RGSMS.Input
             { EInput.UpArrow,           "input_up_arrow" },
             { EInput.DownArrow,         "input_down_arrow" },
             { EInput.LeftArrow,         "input_left_arrow" },
-            { EInput.RightTrigger,      "input_right_arrow" },
+            { EInput.RightArrow,        "input_right_arrow" },
 
             { EInput.DPad,              "input_dpad" },
 
@@ -164,6 +164,8 @@ namespace RGSMS.Input
         private readonly Dictionary<string, DeviceInputIcons> _inputIconsMap = null;
         private Dictionary<EInputsMap, InputActionMap> _inputActionMaps = null;
 
+        private readonly HashSet<Action> _isPressedCallbacks = null;
+
         private readonly Stack<InputActionMap> _inputsMaps = null;
 
         private event Action _deviceDisconnectionEvent = null;
@@ -188,6 +190,8 @@ namespace RGSMS.Input
             _mapInputStorage = new Dictionary<EInputsMap, List<InputConfig>>();
             _inputIconsMap = new Dictionary<string, DeviceInputIcons>();
 
+            _isPressedCallbacks = new HashSet<Action>();
+
             _inputsMaps = new Stack<InputActionMap>();
 
             _inputs = new Inputs();
@@ -204,6 +208,8 @@ namespace RGSMS.Input
 
             PopulateDevicesIcons(deviceInputsIcons);
             PopulateActionMaps();
+
+            RoloGameManager.Instance.AddUpdateCallback(Update);
 
             Application.focusChanged += FocusCallback;
         }
@@ -343,13 +349,14 @@ namespace RGSMS.Input
 
         #endregion
 
-        #region Action Maps
+        #region Action Methods
 
         private void PopulateActionMaps()
         {
-            _inputActionMaps = new();
-
-            //populate with all maps
+            _inputActionMaps = new()
+            {
+                { EInputsMap.None, _inputs.Joystick }
+            };
         }
 
         public void SetNewActionMap(EInputsMap eActionMap)
@@ -389,6 +396,14 @@ namespace RGSMS.Input
             }
         }
 
+        private void Update()
+        {
+            foreach(Action callback in _isPressedCallbacks)
+            {
+                callback.Invoke();
+            }
+        }
+
         public void SetCallbacks(EInputsMap map, List<InputConfig> actionDefiners)
         {
             if (!_mapInputStorage.ContainsKey(map))
@@ -396,18 +411,20 @@ namespace RGSMS.Input
                 _mapInputStorage.Add(map, new List<InputConfig>());
             }
 
-            SetInputDefiners(map, _inputActionMaps[map], actionDefiners);
+            SetInputConfigs(map, _inputActionMaps[map], actionDefiners);
         }
 
-        private void SetInputDefiners(EInputsMap map, InputActionMap actionMap, List<InputConfig> actionDefiners)
+        private void SetInputConfigs(EInputsMap map, InputActionMap actionMap, List<InputConfig> actionConfigs)
         {
             InputAction input;
-            foreach (InputConfig definer in actionDefiners)
+            foreach (InputConfig config in actionConfigs)
             {
-                input = actionMap[definer.InputName];
-                definer.FillInputAction(input);
+                input = actionMap[config.InputName];
 
-                _mapInputStorage[map].Add(definer);
+                config.SetInputManager(this);
+                config.FillInputAction(input);
+
+                _mapInputStorage[map].Add(config);
             }
         }
 
@@ -433,15 +450,25 @@ namespace RGSMS.Input
             {
                 InputConfig definer;
                 InputAction input;
-
                 for (int i = 0; i < definers.Count; i++)
                 {
                     definer = definers[i];
                     input = inputActionMap[definer.InputName];
+
                     definer.ClearInputAction(input);
                 }
                 _mapInputStorage[map].Clear();
             }
+        }
+
+        public void AddNewInputToHoldMap(Action callback)
+        {
+            _isPressedCallbacks.Add(callback);
+        }
+
+        public void RemoveInputFromHoldMap(Action callback)
+        {
+            _isPressedCallbacks.Remove(callback);
         }
 
 #endregion
