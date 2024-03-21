@@ -22,6 +22,7 @@ namespace RGSMS
         private DeviceInputIcons[] _devicesIcons = null;
 
         private event Action _update = null;
+        private event Action<bool> _focus = null;
 
         private void Awake()
         {
@@ -33,12 +34,13 @@ namespace RGSMS
 
             Instance = this;
             InitializeSystems();
+
+            Application.focusChanged += OnChangeFocus;
         }
 
-        private void Update()
-        {
-            _update?.Invoke();
-        }
+        private void Update() => _update?.Invoke();
+
+        private void OnChangeFocus(bool focus) => _focus?.Invoke(focus);
 
         #region Systems Methods
 
@@ -73,6 +75,9 @@ namespace RGSMS
         #endregion
 
         #region Callback Methods
+
+        public void RemoveChangeFocusCallback(Action<bool> callback) => _focus -= callback;
+        public void AddChangeFocusCallback(Action<bool> callback) => _focus += callback;
 
         public void RemoveUpdateCallback(Action callback) => _update -= callback;
         public void AddUpdateCallback(Action callback) => _update += callback;

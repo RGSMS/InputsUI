@@ -91,6 +91,13 @@ namespace RGSMS.Input
     {
         #region Variables
 
+        private readonly Dictionary<string, EDeviceType> _deviceBySchemeMap = new()
+        {
+            { "Keyboard",   EDeviceType.Keyboard },
+            { "Gamepad",    EDeviceType.Gamepad },
+            { "Mouse",      EDeviceType.Mouse }
+        };
+
         private readonly Dictionary<EInput, string> _inputsLocMap = new()
         {
             { EInput.Cross,             "input_cross" },
@@ -153,19 +160,11 @@ namespace RGSMS.Input
             { EDevice.XboxOne,              "Xbox" }
         };
 
-        private readonly Dictionary<string, EDeviceType> _deviceBySchemeMap = new()
-        {
-            { "Keyboard",   EDeviceType.Keyboard },
-            { "Gamepad",    EDeviceType.Gamepad },
-            { "Mouse",      EDeviceType.Mouse }
-        };
-
         private readonly Dictionary<EInputsMap, List<InputConfig>> _mapInputStorage = null;
+        private readonly Dictionary<EInputsMap, InputActionMap> _inputActionMaps = null;
         private readonly Dictionary<string, DeviceInputIcons> _inputIconsMap = null;
-        private Dictionary<EInputsMap, InputActionMap> _inputActionMaps = null;
 
         private readonly HashSet<Action> _isPressedCallbacks = null;
-
         private readonly Stack<InputActionMap> _inputsMaps = null;
 
         private event Action _deviceDisconnectionEvent = null;
@@ -173,11 +172,11 @@ namespace RGSMS.Input
 
         private DeviceInputIcons _deviceInputIcons = null;
 
-        private string _currentControlScheme = null;
-
 #if UNITY_STANDALONE
         private readonly PlayerInput _playerInput = null;
 #endif
+
+        private string _currentControlScheme = null;
 
         private readonly Inputs _inputs = null;
 
@@ -187,12 +186,11 @@ namespace RGSMS.Input
 
         public InputManager(PlayerInput inputComponent, DeviceInputIcons[] deviceInputsIcons)
         {
-            _mapInputStorage = new Dictionary<EInputsMap, List<InputConfig>>();
-            _inputIconsMap = new Dictionary<string, DeviceInputIcons>();
-
-            _isPressedCallbacks = new HashSet<Action>();
-
-            _inputsMaps = new Stack<InputActionMap>();
+            _isPressedCallbacks = new();
+            _mapInputStorage = new();
+            _inputActionMaps = new();
+            _inputIconsMap = new();
+            _inputsMaps = new();
 
             _inputs = new Inputs();
 
@@ -209,9 +207,8 @@ namespace RGSMS.Input
             PopulateDevicesIcons(deviceInputsIcons);
             PopulateActionMaps();
 
+            RoloGameManager.Instance.AddChangeFocusCallback(FocusCallback);
             RoloGameManager.Instance.AddUpdateCallback(Update);
-
-            Application.focusChanged += FocusCallback;
         }
 
         private void FocusCallback(bool onfocus)
@@ -234,7 +231,8 @@ namespace RGSMS.Input
             ClearAllInputs();
             _inputs.Dispose();
 
-            Application.focusChanged -= FocusCallback;
+            RoloGameManager.Instance.RemoveUpdateCallback(Update);
+            RoloGameManager.Instance.RemoveChangeFocusCallback(FocusCallback);
 
             InputSystem.onDeviceChange -= OnDeviceConnected;
 #if UNITY_STANDALONE
@@ -353,10 +351,7 @@ namespace RGSMS.Input
 
         private void PopulateActionMaps()
         {
-            _inputActionMaps = new()
-            {
-                { EInputsMap.None, _inputs.Joystick }
-            };
+            _inputActionMaps.Add(EInputsMap.None, _inputs.Joystick);
         }
 
         public void SetNewActionMap(EInputsMap eActionMap)
